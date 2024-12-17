@@ -1,0 +1,51 @@
+import re
+
+def read_log_file(file_path):
+
+    #### Reads the content of a log file and returns the contents of the lines in the file.
+    try:
+        with open(file_path, 'r') as f:
+            lines = f.readlines()
+        return lines
+    except FileNotFoundError:
+        print("Error: File not found. Please check the file path or try another file.")
+        return []
+
+def detect_login_patterns(log_lines):
+    #### Detects login patterns from log lines and returns a list of log pattern findings.
+    login_patterns = [
+        r"(login\s+successful)",    # Successful logins
+        r"(login\s+failed)",        # Failed logins
+        r"(invalid\s+password)",    # Invalid password attempts
+        r"(user\s+\S+\s+logged\s+in)"  # Generic user logged in
+    ]
+
+    detected_patterns = []
+    
+    for line in log_lines:
+        for pattern in login_patterns:
+            match = re.search(pattern, line, re.IGNORECASE)
+            if match:
+                detected_patterns.append(line.strip())
+                break  # Stop at the first match for a line
+
+    return detected_patterns
+
+def main():
+    # Users inputs path to the log file and the input is used as the argument to the read_log_file function.
+    file_path = input("Enter the path to the log file: ").strip()
+    log_lines = read_log_file(file_path)
+
+    # Detect login patterns
+    detected_logins = detect_login_patterns(log_lines)
+
+    # Output detected patterns
+    if detected_logins:
+        print("\nDetected Login Patterns:")
+        for pattern in detected_logins:
+            print(f" - {pattern}")
+    else:
+        print("No login patterns were detected.")
+
+if __name__ == "__main__":
+    main()
