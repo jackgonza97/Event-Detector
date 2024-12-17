@@ -1,0 +1,1 @@
+This project contains a Python script that reads Linux log files and detects event patterns, such as successful and failed logins, as well as logins from unspecified users. The purpose of the script is to automate the redundant task of parsing logs and detecting anomolies, as well as streamlining the process for the end user.
