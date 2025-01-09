@@ -2,7 +2,7 @@ import re
 
 def read_log_file(file_path):
 
-    #### Reads the content of a log file and returns the contents of the lines in the file.
+    #### Searches the system for file path, reads the content of the file and returns the contents of the lines in the file.
     try:
         with open(file_path, 'r') as f:
             lines = f.readlines()
